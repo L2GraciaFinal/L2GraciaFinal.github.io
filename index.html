@@ -47,6 +47,10 @@
         lang = 'ru';
     } else if (userLang.startsWith('zh')) {
         lang = 'zh';
+    } else if (userLang.startsWith('pl')) {
+        lang = 'pl';
+    } else if (userLang.startsWith('lt')) {
+        lang = 'lt';
     }
 
     fetch(`languages/${lang}.json`)
