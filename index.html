@@ -8,7 +8,7 @@
     <meta name="author" content="Lineage2">
     <title>Lineage 2 Gracia Final x1</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
+    <!--script>
         let userLang = navigator.language || navigator.userLanguage; 
         let lang = userLang.startsWith('pt') ? 'pt' : 
                    userLang.startsWith('zh') ? 'zh' : 
@@ -25,7 +25,58 @@
                 document.getElementById('downloadPatch').innerText = data.downloadPatch;
                 document.getElementById('groupLink').innerText = data.groupLink;
             });
-    </script>
+</script-->
+
+    <script>
+    let userLang = navigator.language || navigator.userLanguage; 
+    let lang = 'en'; 
+
+    if (userLang.startsWith('de')) {
+        lang = 'de';
+    } else if (userLang.startsWith('es')) {
+        lang = 'es';
+    } else if (userLang.startsWith('fr')) {
+        lang = 'fr';
+    } else if (userLang.startsWith('id')) {
+        lang = 'id';
+    } else if (userLang.startsWith('ko')) {
+        lang = 'ko';
+    } else if (userLang.startsWith('pt')) {
+        lang = 'pt';
+    } else if (userLang.startsWith('ru')) {
+        lang = 'ru';
+    } else if (userLang.startsWith('zh')) {
+        lang = 'zh';
+    }
+
+    fetch(`languages/${lang}.json`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('title').innerText = data.title;
+            document.getElementById('description').innerText = data.description;
+            document.getElementById('downloadClient').innerText = data.downloadClient;
+            document.getElementById('downloadPatch').innerText = data.downloadPatch;
+            document.getElementById('groupLink').innerText = data.groupLink;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            fetch('languages/en.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('title').innerText = data.title;
+                    document.getElementById('description').innerText = data.description;
+                    document.getElementById('downloadClient').innerText = data.downloadClient;
+                    document.getElementById('downloadPatch').innerText = data.downloadPatch;
+                    document.getElementById('groupLink').innerText = data.groupLink;
+                });
+        });
+</script>
+
 </head>
 <body>
     <div class="container">
